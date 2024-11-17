@@ -45,7 +45,7 @@ float Graph::calculateCost(float distance) {
     return (distance / 100.0f) * 1000.0f;
 }
 
-void Graph::Dijkstra(const std::string& startName, const std::string& endName) {
+void Graph::Dijkstra(const std::string& startName, const std::string& endName, Car& car) {
     for (auto& edge : edges) {
         edge.setColor(sf::Color::Red); 
     }
@@ -72,7 +72,6 @@ void Graph::Dijkstra(const std::string& startName, const std::string& endName) {
         Node* currentNode = pq.top().second;
         pq.pop();
 
-        // Si ya alcanzamos el nodo final, podemos terminar
         if (currentNode == endNode) {
             break;
         }
@@ -94,13 +93,12 @@ void Graph::Dijkstra(const std::string& startName, const std::string& endName) {
                 if (newDist < distances[neighbor]) {
                     distances[neighbor] = newDist;
                     pq.push({ newDist, neighbor });
-                    previousNode[neighbor] = currentNode; // Guardamos el nodo anterior
+                    previousNode[neighbor] = currentNode; 
                 }
             }
         }
     }
 
-    // Reconstruir el camino mas corto
     std::vector<Node*> path;
     float totalDistance = 0.0f;  
     for (Node* at = endNode; at != nullptr; at = previousNode[at]) {
@@ -116,6 +114,12 @@ void Graph::Dijkstra(const std::string& startName, const std::string& endName) {
     }
 
     std::reverse(path.begin(), path.end());
+    std::vector<sf::Vector2f> carPath;
+    for (const auto& node : path) {
+        carPath.push_back(node->getPosition());
+    }
+    car.setPath(carPath);
+
     std::cout << std::endl;
     std::cout << "\033[38;5;226m";
     std::cout << "Ruta mas corta desde " << startName << " a " << endName << ": ";

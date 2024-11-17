@@ -7,7 +7,7 @@
 #include <unordered_map>
 #include <iostream>
 #include <climits> 
-
+#include "Car.h"
 class Graph {
 private:
     std::vector<Node> nodes;
@@ -23,7 +23,7 @@ public:
     float calculateDistance(Node* node1, Node* node2) const;
     Node* findNodeByName(const std::string& name) const;
     float calculateCost(float distance);
-    void Dijkstra(const std::string& startName, const std::string& endName);
+    void Dijkstra(const std::string& startName, const std::string& endName, Car& car);
     void initializeGraph();
     float getPrice();
     void BFS(); 

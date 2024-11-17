@@ -1,6 +1,6 @@
 #include "MapController.h"
 
-MapController::MapController(){
+MapController::MapController():car(50.0f, 25.0f, sf::Color::Red, 100.0f), isCarVisible(false) {
     //Rectangle Shapes
     separatorRect.setSize(sf::Vector2f(393.7f, 1001.1f));
     separatorRect.setFillColor(sf::Color(254, 250, 224));
@@ -18,7 +18,6 @@ MapController::MapController(){
     backRect.setFillColor(sf::Color(212, 163, 115));
     backRect.setPosition(64.3f, 930.9f);
 
-
     //Textos
     algorithmsText.setCharacterSize(40);
     algorithmsText.setFillColor(sf::Color(96, 108, 56));
@@ -30,8 +29,7 @@ MapController::MapController(){
 
     dijkstraText.setCharacterSize(19);
     dijkstraText.setFillColor(sf::Color::Black);
-    dijkstraText.setPosition(190.0f, 172.9f); //MATHS +125.7px y +30px 
-
+    dijkstraText.setPosition(190.0f, 172.9f);
 
     startText.setCharacterSize(19);
     startText.setFillColor(sf::Color::Black);
@@ -96,10 +94,10 @@ void MapController::handleMouseHover(const sf::RenderWindow& window)
     sf::Vector2i mousePos = sf::Mouse::getPosition(window);
 
     if (dijkstraRect.getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePos))) {
-        dijkstraRect.setFillColor(sf::Color(209, 147, 92)); //Cambiar si pasa el mouse
+        dijkstraRect.setFillColor(sf::Color(209, 147, 92)); 
     }
     else {
-        dijkstraRect.setFillColor(sf::Color(188, 108, 37)); // Su color base
+        dijkstraRect.setFillColor(sf::Color(188, 108, 37)); 
         
     }
     if (startRect.getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePos))) {
@@ -168,14 +166,15 @@ void MapController::render(sf::RenderWindow& window) {
     window.draw(costText);
     window.draw(priceText);
     graph.draw(window);
+    if (isCarVisible) {
+        car.draw(window);
+    }
 }
 
 void MapController::addNodeToGraph(float x, float y, const std::string& name)
 {
     graph.addNode(x, y, name);
 }
-
-
 
 void MapController::requestNodesInput(sf::RenderWindow& window) {
     std::cout << std::endl;
@@ -187,8 +186,8 @@ void MapController::requestNodesInput(sf::RenderWindow& window) {
 
 void MapController::startDijkstra(const std::string& startNode, const std::string& endNode) {
     std::cout << "Iniciando Dijkstra desde " << startNode << " hasta " << endNode << std::endl;
-    graph.Dijkstra(startNode, endNode);
-
+    graph.Dijkstra(startNode, endNode, car);
+    isCarVisible = true;
     priceText.setFont(openSans);
     float price = graph.getPrice();
 
@@ -197,6 +196,11 @@ void MapController::startDijkstra(const std::string& startNode, const std::strin
     std::string price_str = stream.str();
 
     priceText.setString(price_str);
+}
+
+void MapController::updateCar(float deltaTime)
+{
+    car.update(deltaTime);
 }
 
 std::string MapController::getStartNodeInput(){

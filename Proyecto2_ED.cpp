@@ -11,7 +11,7 @@ int main() {
     MenuController menu;
     MapController map;
     PlacesController places;
-
+    sf::Clock clock;
     bool isMapLoaded = false;
     bool isPlacesLoaded = false;
     bool isDikjstraLoaded = false;
@@ -26,7 +26,8 @@ int main() {
                 window.close();
             }
         }
-
+        float deltaTime = clock.restart().asSeconds();
+        map.updateCar(deltaTime);
         if (!isMapLoaded && !isPlacesLoaded) {
             menu.handleMouseHover(window);
 
@@ -37,7 +38,6 @@ int main() {
                 isMapLoaded = true;
             }
 
-            // Click en Mostrar lugares
             if (menu.handleShowPlacesClick(window)) {
                 if (!places.loadResources()) {
                     return 1;
@@ -60,7 +60,8 @@ int main() {
 
             if (isDikjstraLoaded && map.handleStartClick(window)) {
                 std::cout << std::endl;
-                map.startDijkstra(map.getStartNodeInput(), map.getEndNodeInput());
+
+                map.startDijkstra(map.getStartNodeInput(), map.getEndNodeInput());               
                 isDikjstraLoaded = false;
             }
 
@@ -75,7 +76,6 @@ int main() {
             places.animateButtons(2.0f);
             places.handleMouseHover(window);
 
-            // Click en "Regresar" desde la vista de PlacesController
             if (places.handleBackClick(window)) {
                 isPlacesLoaded = false;
                 places.resetPositions();

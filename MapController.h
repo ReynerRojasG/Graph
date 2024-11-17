@@ -5,9 +5,11 @@
 #include <iostream>
 #include <iomanip> 
 #include <sstream>
+#include "Car.h"
 class MapController {
 private:
     Graph graph;
+    Car car;
     sf::Texture mapTexture;
     sf::Sprite mapSprite;
     sf::Font breeSerif;
@@ -30,6 +32,7 @@ private:
 
     std::string startNodeInput;
     std::string endNodeInput;
+    bool isCarVisible;
 public:
     MapController();
     bool loadResources();
@@ -41,6 +44,8 @@ public:
     void render(sf::RenderWindow& window);
     void requestNodesInput(sf::RenderWindow& window);
     void startDijkstra(const std::string& startNode, const std::string& endNode);
+    void updateCar(float deltaTime);
+
     std::string getStartNodeInput();
     std::string getEndNodeInput();
 };
