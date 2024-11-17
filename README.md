@@ -1,6 +1,6 @@
 # Graph
-## **COLABORATORS:** Cripriano Rivera, Makin Artavia, Reyner Rojas.
-El funcionamiento es el siguiente.
+## **COLABORATORS:** [Reyner Rojas](https://github.com/ReynerRojasG) | [Cipriano Rivera](https://github.com/cipriano18) | [Makin Artavia](https://github.com/MakartzZz)
+[![Typing SVG](https://readme-typing-svg.demolab.com?font=Fira+Code&pause=1000&width=435&lines=Reyner+Rojas;Cipriano+Rivera;Makin+Artavia)](https://git.io/typing-svg)
 
 ## Pasos:
 
