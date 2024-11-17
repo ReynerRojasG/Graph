@@ -1,5 +1,5 @@
 # Graph
-
+## **COLABORATORS:** Cripriano Rivera, Makin Artavia, Reyner Rojas.
 El funcionamiento es el siguiente.
 
 ## Pasos:
